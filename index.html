@@ -9,9 +9,11 @@
 
 <!-- LOGIN -->
 <div id="login">
-  <h2>Anmeldung</h2>
+  <h2>Login</h2>
+  <input type="email" id="email" placeholder="E-Mail">
   <input type="password" id="password" placeholder="Passwort">
   <button onclick="login()">Anmelden</button>
+  <p id="loginError"></p>
 </div>
 
 <!-- HAUPTAPP -->
@@ -19,11 +21,11 @@
 
   <!-- NAVIGATION -->
   <nav>
-    <button onclick="showPage('home')">Home</button>
-    <button onclick="showPage('inventar')">Inventar</button>
-    <button onclick="showPage('aktuell')">Aktuell</button>
-    <button onclick="showPage('wichtig')">Wichtig</button>
-    <button onclick="toggleDarkMode()">Dark Mode</button>
+    <button onclick="showPage('home')">🏠 Home</button>
+    <button onclick="showPage('inventar')">📟 Inventar</button>
+    <button onclick="showPage('aktuell')">📝 Aktuell</button>
+    <button onclick="showPage('wichtig')">⚠️ Wichtig</button>
+    <button onclick="toggleDarkMode()">🌙 Dark Mode</button>
   </nav>
 
   <!-- HOME -->
@@ -35,16 +37,16 @@
   <section id="inventar" class="page hidden">
     <h2>Inventar</h2>
 
-    <input id="search" placeholder="Suchen" oninput="loadInventar()">
+    <input id="search" placeholder="Suchen..." oninput="loadInventar()">
     <select id="filterGroup" onchange="loadInventar()">
       <option value="alle">Alle Gruppen</option>
-      <option>Geräte</option>
-      <option>Zubehör</option>
-      <option>Nebel</option>
-      <option>Kabel</option>
-      <option>Verbrauch</option>
+      <option>📟 Geräte</option>
+      <option>🔌 Zubehör</option>
+      <option>🌫️ Nebel</option>
+      <option>🔗 Kabel</option>
+      <option>📦 Verbrauch</option>
     </select>
-    <button onclick="openForm()">Neu</button>
+    <button onclick="openForm()">➕ Neu</button>
 
     <table>
       <thead>
@@ -64,7 +66,7 @@
   <section id="aktuell" class="page hidden">
     <h2>Aktuell</h2>
     <textarea id="infoText" placeholder="Neue Information..."></textarea>
-    <button onclick="addInfo()">Speichern</button>
+    <button onclick="addInfo()">💾 Speichern</button>
     <ul id="infoListe"></ul>
   </section>
 
@@ -81,24 +83,25 @@
   <input id="name" placeholder="Name">
   <input id="anzahl" type="number" placeholder="Anzahl">
   <select id="gruppe">
-    <option>Geräte</option>
-    <option>Zubehör</option>
-    <option>Nebel</option>
-    <option>Kabel</option>
-    <option>Verbrauch</option>
+    <option>📟 Geräte</option>
+    <option>🔌 Zubehör</option>
+    <option>🌫️ Nebel</option>
+    <option>🔗 Kabel</option>
+    <option>📦 Verbrauch</option>
   </select>
   <select id="status">
-    <option>Ok</option>
-    <option>Defekt</option>
-    <option>Leer</option>
+    <option>✅ Ok</option>
+    <option>❌ Defekt</option>
+    <option>⚠️ Leer</option>
   </select>
-  <button onclick="saveItem()">Speichern</button>
-  <button onclick="closeForm()">Abbrechen</button>
+  <button onclick="saveItem()">💾 Speichern</button>
+  <button onclick="closeForm()">❌ Abbrechen</button>
 </div>
 
 <!-- FIREBASE SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-auth-compat.js"></script>
 
 <!-- HAUPT JAVASCRIPT -->
 <script src="app.js"></script>
