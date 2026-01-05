@@ -7,17 +7,17 @@
 </head>
 <body>
 
-<!-- ===================== LOGIN ===================== -->
+<!-- LOGIN -->
 <div id="login">
   <h2>Anmeldung</h2>
   <input type="password" id="password" placeholder="Passwort">
   <button onclick="login()">Anmelden</button>
 </div>
 
-<!-- ===================== HAUPTAPP ===================== -->
+<!-- HAUPTAPP -->
 <div id="app" class="hidden">
 
-  <!-- ===================== NAVIGATION ===================== -->
+  <!-- NAVIGATION -->
   <nav>
     <button onclick="showPage('home')">Home</button>
     <button onclick="showPage('inventar')">Inventar</button>
@@ -26,12 +26,12 @@
     <button onclick="toggleDarkMode()">Dark Mode</button>
   </nav>
 
-  <!-- ===================== HOME ===================== -->
+  <!-- HOME -->
   <section id="home" class="page">
     <h1>Gyra Technik</h1>
   </section>
 
-  <!-- ===================== INVENTAR ===================== -->
+  <!-- INVENTAR -->
   <section id="inventar" class="page hidden">
     <h2>Inventar</h2>
 
@@ -60,7 +60,7 @@
     </table>
   </section>
 
-  <!-- ===================== AKTUELL ===================== -->
+  <!-- AKTUELL -->
   <section id="aktuell" class="page hidden">
     <h2>Aktuell</h2>
     <textarea id="infoText" placeholder="Neue Information..."></textarea>
@@ -68,7 +68,7 @@
     <ul id="infoListe"></ul>
   </section>
 
-  <!-- ===================== WICHTIG ===================== -->
+  <!-- WICHTIG -->
   <section id="wichtig" class="page hidden">
     <h2>Wichtig</h2>
     <ul id="wichtigListe"></ul>
@@ -76,7 +76,7 @@
 
 </div>
 
-<!-- ===================== FORMULAR INVENTAR ===================== -->
+<!-- FORMULAR INVENTAR -->
 <div id="form" class="hidden">
   <input id="name" placeholder="Name">
   <input id="anzahl" type="number" placeholder="Anzahl">
@@ -96,12 +96,12 @@
   <button onclick="closeForm()">Abbrechen</button>
 </div>
 
-<!-- ===================== FIREBASE SCRIPTS ===================== -->
+<!-- FIREBASE SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-database-compat.js"></script>
 
-<!-- ===================== HAUPT JAVASCRIPT ===================== -->
-<script type="module" src="app.js"></script>
+<!-- HAUPT JAVASCRIPT -->
+<script src="app.js"></script>
 
 </body>
 </html>
