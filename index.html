@@ -12,11 +12,11 @@
   <h2>Login</h2>
   <input type="email" id="email" placeholder="E-Mail">
   <input type="password" id="password" placeholder="Passwort">
-  <button>Anmelden</button>
+  <button id="loginBtn">Anmelden</button>
   <p id="loginError"></p>
 </div>
 
-<!-- HAUPTAPP -->
+<!-- APP -->
 <div id="app" class="hidden">
 
   <!-- NAVIGATION -->
@@ -97,13 +97,11 @@
   <button onclick="closeForm()">❌ Abbrechen</button>
 </div>
 
-<!-- FIREBASE SDK -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-database-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-auth-compat.js"></script>
 
-<!-- HAUPT JAVASCRIPT -->
 <script src="app.js"></script>
-
 </body>
 </html>
