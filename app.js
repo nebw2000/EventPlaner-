@@ -15,12 +15,20 @@ let editId = null;
 
 function login() {
   if (password.value === "GyraTechnik") {
-    document.getElementById("login").classList.add("hidden");
-    document.getElementById("app").classList.remove("hidden");
+    loginDiv().classList.add("hidden");
+    appDiv().classList.remove("hidden");
+    loadTheme();
     loadInventar();
     loadInfos();
-    loadTheme();
   }
+}
+
+function loginDiv() {
+  return document.getElementById("login");
+}
+
+function appDiv() {
+  return document.getElementById("app");
 }
 
 function showPage(id) {
@@ -40,12 +48,16 @@ function loadTheme() {
 }
 
 function openForm() {
-  form.classList.remove("hidden");
+  form().classList.remove("hidden");
 }
 
 function closeForm() {
-  form.classList.add("hidden");
+  form().classList.add("hidden");
   editId = null;
+}
+
+function form() {
+  return document.getElementById("form");
 }
 
 function saveItem() {
@@ -82,6 +94,7 @@ function loadInventar() {
 
     snap.forEach(c => {
       const d = c.val();
+
       if (filter !== "alle" && d.gruppe !== filter) return;
       if (!d.name.toLowerCase().includes(query)) return;
 
@@ -123,7 +136,7 @@ function loadWichtig() {
       const d = c.val();
       if (d.status !== "Ok") {
         const li = document.createElement("li");
-        li.textContent = d.name + " – " + d.status;
+        li.textContent = d.name + " (" + d.status + ")";
         wichtigListe.appendChild(li);
       }
     });
