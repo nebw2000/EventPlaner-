@@ -15,17 +15,21 @@ const auth = firebase.auth();
 let editId = null;
 
 // ===================== Login =====================
-const loginBtn = document.querySelector("#login button");
+const loginBtn = document.getElementById("loginBtn");
 const loginError = document.getElementById("loginError");
 
 loginBtn.addEventListener("click", () => {
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
-  if(!email || !password) { loginError.innerText="E-Mail und Passwort erforderlich!"; return; }
+  if(!email || !password){ loginError.innerText="E-Mail und Passwort erforderlich!"; return; }
 
   auth.signInWithEmailAndPassword(email,password)
-    .then(()=>{ document.getElementById("login").classList.add("hidden"); document.getElementById("app").classList.remove("hidden"); loadTheme(); loadInventar(); loadInfos(); loginError.innerText=""; })
-    .catch(err=>{ console.error(err); loginError.innerText=err.message; });
+    .then(()=>{ 
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("app").classList.remove("hidden");
+      loadTheme(); loadInventar(); loadInfos(); loginError.innerText=""; 
+    })
+    .catch(err=>{ loginError.innerText = err.message; console.error(err); });
 });
 
 auth.onAuthStateChanged(user=>{
