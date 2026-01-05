@@ -1,5 +1,6 @@
+// ===================== Firebase Initialisierung =====================
 const firebaseConfig = {
-  apiKey: "DEIN_API_KEY",
+  apiKey: "AIzaSyA77Epd0AXYz41c47nXuJHP2EKqWbuneb4",
   authDomain: "gyraevent.firebaseapp.com",
   databaseURL: "https://gyraevent-default-rtdb.firebaseio.com",
   projectId: "gyraevent",
@@ -11,151 +12,142 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// ===================== Globale Variablen =====================
 let editId = null;
 
+// ===================== Login =====================
 function login() {
-  if (password.value === "GyraTechnik") {
-    loginDiv().classList.add("hidden");
-    appDiv().classList.remove("hidden");
+  const pass = document.getElementById("password").value;
+  if(pass === "GyraTechnik") {
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("app").classList.remove("hidden");
     loadTheme();
     loadInventar();
     loadInfos();
+  } else {
+    alert("Falsches Passwort!");
   }
 }
 
-function loginDiv() {
-  return document.getElementById("login");
-}
-
-function appDiv() {
-  return document.getElementById("app");
-}
-
+// ===================== Navigation =====================
 function showPage(id) {
   document.querySelectorAll(".page").forEach(p => p.classList.add("hidden"));
   document.getElementById(id).classList.remove("hidden");
 }
 
+// ===================== Dark Mode =====================
 function toggleDarkMode() {
   document.body.classList.toggle("dark");
   localStorage.setItem("dark", document.body.classList.contains("dark"));
 }
 
 function loadTheme() {
-  if (localStorage.getItem("dark") === "true") {
-    document.body.classList.add("dark");
-  }
+  if(localStorage.getItem("dark") === "true") document.body.classList.add("dark");
 }
 
-function openForm() {
-  form().classList.remove("hidden");
-}
-
-function closeForm() {
-  form().classList.add("hidden");
+// ===================== Formular =====================
+function openForm() { document.getElementById("form").classList.remove("hidden"); }
+function closeForm() { 
+  document.getElementById("form").classList.add("hidden");
   editId = null;
 }
 
-function form() {
-  return document.getElementById("form");
-}
-
+// ===================== Inventar =====================
 function saveItem() {
-  if (!name.value) return;
+  const nameVal = document.getElementById("name").value.trim();
+  const anzahlVal = document.getElementById("anzahl").value;
+  const gruppeVal = document.getElementById("gruppe").value;
+  const statusVal = document.getElementById("status").value;
 
-  const data = {
-    name: name.value,
-    anzahl: anzahl.value,
-    gruppe: gruppe.value,
-    status: status.value
-  };
+  if(!nameVal) return alert("Name darf nicht leer sein!");
 
-  if (editId) {
+  const data = { name: nameVal, anzahl: anzahlVal, gruppe: gruppeVal, status: statusVal };
+
+  if(editId) {
     db.ref("inventar/" + editId).set(data);
   } else {
     db.ref("inventar").push(data);
   }
-
   closeForm();
 }
 
+// Löschen
 function deleteItem(id) {
-  if (confirm("Eintrag löschen?")) {
-    db.ref("inventar/" + id).remove();
-  }
+  if(confirm("Eintrag wirklich löschen?")) db.ref("inventar/" + id).remove();
 }
 
+// Laden
 function loadInventar() {
-  const filter = filterGroup.value;
-  const query = search.value.toLowerCase();
+  const filter = document.getElementById("filterGroup").value;
+  const query = document.getElementById("search").value.toLowerCase();
+  const tbody = document.getElementById("inventarListe");
+  tbody.innerHTML = "";
 
-  db.ref("inventar").on("value", snap => {
-    inventarListe.innerHTML = "";
-
-    snap.forEach(c => {
-      const d = c.val();
-
-      if (filter !== "alle" && d.gruppe !== filter) return;
-      if (!d.name.toLowerCase().includes(query)) return;
+  db.ref("inventar").on("value", snapshot => {
+    tbody.innerHTML = "";
+    snapshot.forEach(child => {
+      const data = child.val();
+      if(filter !== "alle" && data.gruppe !== filter) return;
+      if(!data.name.toLowerCase().includes(query)) return;
 
       const tr = document.createElement("tr");
-      tr.className = "status-" + d.status;
+      tr.className = "status-" + data.status;
 
       tr.innerHTML = `
-        <td>${d.name}</td>
-        <td>${d.anzahl}</td>
-        <td>${d.gruppe}</td>
-        <td>${d.status}</td>
-        <td>
-          <button class="delete" onclick="deleteItem('${c.key}')">Löschen</button>
-        </td>
+        <td>${data.name}</td>
+        <td>${data.anzahl}</td>
+        <td>${data.gruppe}</td>
+        <td>${data.status}</td>
+        <td><button class="delete" onclick="deleteItem('${child.key}')">Löschen</button></td>
       `;
-
-      tr.onclick = () => editItem(c.key, d);
-      inventarListe.appendChild(tr);
+      tr.onclick = () => editItem(child.key, data);
+      tbody.appendChild(tr);
     });
-
     loadWichtig();
   });
 }
 
-function editItem(id, d) {
+function editItem(id, data) {
   editId = id;
   openForm();
-  name.value = d.name;
-  anzahl.value = d.anzahl;
-  gruppe.value = d.gruppe;
-  status.value = d.status;
+  document.getElementById("name").value = data.name;
+  document.getElementById("anzahl").value = data.anzahl;
+  document.getElementById("gruppe").value = data.gruppe;
+  document.getElementById("status").value = data.status;
 }
 
+// Wichtig
 function loadWichtig() {
-  wichtigListe.innerHTML = "";
-
-  db.ref("inventar").once("value", snap => {
-    snap.forEach(c => {
-      const d = c.val();
-      if (d.status !== "Ok") {
+  const ul = document.getElementById("wichtigListe");
+  ul.innerHTML = "";
+  db.ref("inventar").once("value").then(snapshot => {
+    snapshot.forEach(child => {
+      const data = child.val();
+      if(data.status !== "Ok") {
         const li = document.createElement("li");
-        li.textContent = d.name + " (" + d.status + ")";
-        wichtigListe.appendChild(li);
+        li.textContent = `${data.name} (${data.status})`;
+        ul.appendChild(li);
       }
     });
   });
 }
 
+// ===================== Aktuell =====================
 function addInfo() {
-  if (!infoText.value) return;
-  db.ref("infos").push({ text: infoText.value });
-  infoText.value = "";
+  const text = document.getElementById("infoText").value.trim();
+  if(!text) return;
+  db.ref("infos").push({ text });
+  document.getElementById("infoText").value = "";
 }
 
 function loadInfos() {
-  db.ref("infos").on("value", snap => {
-    infoListe.innerHTML = "";
-    snap.forEach(c => {
+  const ul = document.getElementById("infoListe");
+  db.ref("infos").on("value", snapshot => {
+    ul.innerHTML = "";
+    snapshot.forEach(child => {
       const li = document.createElement("li");
-      li.textContent = c.val().text;
-      infoListe.appendChild(li);
+      li.textContent = child.val().text;
+      ul.appendChild(li);
     });
   });
 }
