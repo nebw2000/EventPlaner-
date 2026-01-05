@@ -1,80 +1,70 @@
-:root {
-  --bg: #f2f2f2;
-  --text: #000;
-  --nav: #222;
-  --card: #fff;
-  --border: #ccc;
-}
-
-body.dark {
-  --bg: #121212;
-  --text: #f2f2f2;
-  --nav: #1e1e1e;
-  --card: #1c1c1c;
-  --border: #444;
-}
-
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  color: #000;
 }
 
-.hidden {
-  display: none;
+.hidden { display: none; }
+
+.dark {
+  background-color: #121212;
+  color: #f0f0f0;
 }
 
 nav {
-  background: var(--nav);
+  background-color: #333;
+  color: #fff;
   padding: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 nav button {
-  background: none;
+  background-color: #555;
+  color: #fff;
   border: none;
-  color: white;
-  margin-right: 10px;
+  padding: 5px 10px;
   cursor: pointer;
 }
 
-.page {
-  padding: 20px;
-}
+nav button:hover { background-color: #777; }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background: var(--card);
+  margin-top: 10px;
 }
 
-td, th {
-  border: 1px solid var(--border);
-  padding: 6px;
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: left;
 }
 
-.status-Defekt {
-  background: #ff9a9a;
-}
-
-.status-Leer {
-  background: #9ad7ff;
-}
+.status-Ok { background-color: #d4f4d4; }
+.status-Defekt { background-color: #f4d4d4; }
+.status-Leer { background-color: #d4e0f4; }
 
 button.delete {
-  background: #c62828;
+  background-color: red;
   color: white;
   border: none;
-  padding: 4px 8px;
+  padding: 3px 5px;
   cursor: pointer;
 }
+
+button.delete:hover { background-color: darkred; }
 
 #form {
   position: fixed;
   top: 20%;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--card);
+  background: #eee;
   padding: 20px;
-  border: 1px solid var(--border);
+  border: 2px solid #333;
+  z-index: 100;
 }
+.dark #form { background: #222; border-color: #fff; }
