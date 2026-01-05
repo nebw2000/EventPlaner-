@@ -4,21 +4,20 @@
   <meta charset="UTF-8">
   <title>Gyra Technik</title>
   <link rel="stylesheet" href="style.css">
-
-  <script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-database-compat.js"></script>
 </head>
-
 <body>
 
+<!-- ===================== LOGIN ===================== -->
 <div id="login">
   <h2>Anmeldung</h2>
   <input type="password" id="password" placeholder="Passwort">
   <button onclick="login()">Anmelden</button>
 </div>
 
+<!-- ===================== HAUPTAPP ===================== -->
 <div id="app" class="hidden">
 
+  <!-- ===================== NAVIGATION ===================== -->
   <nav>
     <button onclick="showPage('home')">Home</button>
     <button onclick="showPage('inventar')">Inventar</button>
@@ -27,15 +26,16 @@
     <button onclick="toggleDarkMode()">Dark Mode</button>
   </nav>
 
+  <!-- ===================== HOME ===================== -->
   <section id="home" class="page">
     <h1>Gyra Technik</h1>
   </section>
 
+  <!-- ===================== INVENTAR ===================== -->
   <section id="inventar" class="page hidden">
     <h2>Inventar</h2>
 
     <input id="search" placeholder="Suchen" oninput="loadInventar()">
-
     <select id="filterGroup" onchange="loadInventar()">
       <option value="alle">Alle Gruppen</option>
       <option>Geräte</option>
@@ -44,7 +44,6 @@
       <option>Kabel</option>
       <option>Verbrauch</option>
     </select>
-
     <button onclick="openForm()">Neu</button>
 
     <table>
@@ -61,13 +60,15 @@
     </table>
   </section>
 
+  <!-- ===================== AKTUELL ===================== -->
   <section id="aktuell" class="page hidden">
     <h2>Aktuell</h2>
-    <textarea id="infoText"></textarea>
+    <textarea id="infoText" placeholder="Neue Information..."></textarea>
     <button onclick="addInfo()">Speichern</button>
     <ul id="infoListe"></ul>
   </section>
 
+  <!-- ===================== WICHTIG ===================== -->
   <section id="wichtig" class="page hidden">
     <h2>Wichtig</h2>
     <ul id="wichtigListe"></ul>
@@ -75,10 +76,10 @@
 
 </div>
 
+<!-- ===================== FORMULAR INVENTAR ===================== -->
 <div id="form" class="hidden">
   <input id="name" placeholder="Name">
   <input id="anzahl" type="number" placeholder="Anzahl">
-
   <select id="gruppe">
     <option>Geräte</option>
     <option>Zubehör</option>
@@ -86,17 +87,21 @@
     <option>Kabel</option>
     <option>Verbrauch</option>
   </select>
-
   <select id="status">
     <option>Ok</option>
     <option>Defekt</option>
     <option>Leer</option>
   </select>
-
   <button onclick="saveItem()">Speichern</button>
   <button onclick="closeForm()">Abbrechen</button>
 </div>
 
-<script src="app.js"></script>
+<!-- ===================== FIREBASE SCRIPTS ===================== -->
+<script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.30.0/firebase-database-compat.js"></script>
+
+<!-- ===================== HAUPT JAVASCRIPT ===================== -->
+<script type="module" src="app.js"></script>
+
 </body>
 </html>
