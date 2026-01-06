@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>GyRa Technik Inventar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <a href="home.html">Home</a>
+  <a href="inventar.html">Inventar</a>
+  <a href="tv.html">TV</a>
+  <a href="weiteres.html">Weiteres</a>
+</div>
+
+<input type="text" id="search" placeholder="Suche...">
+<button class="add-btn" id="addBtn">Hinzufügen</button>
+
+<table id="inventarTable">
+  <tr><th>Name</th><th>Anzahl</th><th>Gruppe</th><th>Aktionen</th></tr>
+</table>
+
+<div class="popup" id="popup">
+  <input id="name" placeholder="Name">
+  <input id="amount" placeholder="Anzahl">
+  <select id="group">
+    <option>Kabel</option>
+    <option>Pulte</option>
+    <option>Licht</option>
+    <option>Ton</option>
+    <option>Materialien</option>
+    <option>Effekte</option>
+  </select>
+  <button id="saveItem">Speichern</button>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, push, set, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA77Epd0AXYz41c47nXuJHP2EKqWbuneb4",
+  authDomain: "gyraevent.firebaseapp.com",
+  databaseURL: "https://gyraevent-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "gyraevent",
+  storageBucket: "gyraevent.firebasestorage.app",
+  messagingSenderId: "1055376556998",
+  appId: "1:1055376556998:web:cf91c05b247fcd8450a8c7"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const table = document.getElementById("inventarTable");
+const addBtn = document.getElementById("addBtn");
+const popup = document.getElementById("popup");
+const saveBtn = document.getElementById("saveItem");
+const searchInput = document.getElementById("search");
+
+let editKey = null;
+
+// Öffnen Popup
+addBtn.addEventListener("click", ()=> popup.style.display="block");
+
+// Speichern / Hinzufügen
+saveBtn.addEventListener("click", ()=>{
+  const name = document.getElementById("name").value;
+  const amount = document.getElementById("amount").value;
+  const group = document.getElementById("group").value;
+
+  if(!name || !amount) return;
+
+  if(editKey){
+    set(ref(db, "inventar/"+editKey), {name, amount, group});
+    editKey = null;
+  } else {
+    const newRef = push(ref(db, "inventar"));
+    set(newRef, {name, amount, group});
+  }
+
+  popup.style.display="none";
+  document.getElementById("name").value="";
+  document.getElementById("amount").value="";
+});
+
+// Daten laden
+const dbRef = ref(db, "inventar");
+onValue(dbRef, snapshot=>{
+  const filter = searchInput.value.toLowerCase();
+  table.innerHTML="<tr><th>Name</th><th>Anzahl</th><th>Gruppe</th><th>Aktionen</th></tr>";
+  snapshot.forEach(child=>{
+    const data = child.val();
+    if(data.name.toLowerCase().includes(filter)){
+      const row = table.insertRow();
+      row.insertCell(0).innerText = data.name;
+      row.insertCell(1).innerText = data.amount;
+      row.insertCell(2).innerText = data.group;
+
+      const editCell = row.insertCell(3);
+      const editBtn = document.createElement("button");
+      editBtn.innerText="Bearbeiten";
+      editBtn.addEventListener("click", ()=>{
+        document.getElementById("name").value=data.name;
+        document.getElementById("amount").value=data.amount;
+        document.getElementById("group").value=data.group;
+        popup.style.display="block";
+        editKey = child.key;
+      });
+
+      const delBtn = document.createElement("button");
+      delBtn.innerText="Löschen";
+      delBtn.style.marginLeft="5px";
+      delBtn.addEventListener("click", ()=>{
+        remove(ref(db, "inventar/"+child.key));
+      });
+
+      editCell.appendChild(editBtn);
+      editCell.appendChild(delBtn);
+    }
+  });
+});
+
+// Suche live
+searchInput.addEventListener("input", ()=> onValue(dbRef, ()=>{}));
+</script>
+
+</body>
+</html>
