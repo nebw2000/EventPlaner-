@@ -1,47 +1,12 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #bfbfbf;
-  color: white;
-}
-
-.login-box {
-  width: 300px;
-  margin: 150px auto;
-  background: #0b2a44;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-}
-
-input {
-  width: 90%;
-  padding: 10px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-}
-
-button {
-  width: 95%;
-  padding: 10px;
-  background: green;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-#errorBox {
-  display: none;
-  background: red;
-  margin-top: 10px;
-  padding: 8px;
-  border-radius: 4px;
+  background: #e0e0e0;
+  color: #000;
 }
 
 .topbar {
-  background: #061a2f;
+  background: #0b2a44;
   padding: 15px;
   display: flex;
   justify-content: flex-end;
@@ -54,14 +19,49 @@ button {
   font-weight: bold;
 }
 
-table {
-  width: 90%;
-  margin: 20px auto;
-  border-collapse: collapse;
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 2em;
 }
 
-table, th, td {
-  border: 1px solid #444;
+input[type="text"], input[type="number"], select {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.4);
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  background: rgba(0,128,0,0.7);
+  color: white;
+  font-weight: bold;
+}
+
+.add-btn {
+  margin: 10px;
+}
+
+.table-container {
+  width: 90%;
+  margin: 20px auto;
+  overflow-x: auto;
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.2);
+  border-radius: 15px;
+  padding: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
 th, td {
@@ -69,15 +69,8 @@ th, td {
   text-align: left;
 }
 
-.add-btn {
-  background: green;
-  color: white;
-  padding: 10px;
-  margin: 20px auto;
-  display: block;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+tr:nth-child(even) {
+  background: rgba(255,255,255,0.1);
 }
 
 .popup {
@@ -86,21 +79,9 @@ th, td {
   top: 25%;
   left: 50%;
   transform: translate(-50%, -25%);
-  background: #0b2a44;
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 15px;
   z-index: 100;
-}
-
-.popup input, .popup select {
-  width: 100%;
-  margin: 8px 0;
-  padding: 8px;
-  border-radius: 4px;
-  border: none;
-}
-
-.popup button {
-  width: 100%;
-  margin-top: 10px;
 }
