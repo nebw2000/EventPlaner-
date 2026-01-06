@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <title>GyRa Technik</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Content Security Policy für sichere Firebase-Einbindung -->
+<meta http-equiv="Content-Security-Policy" content="
+  default-src 'self' https://www.gstatic.com https://*.firebaseio.com;
+  script-src 'self' https://www.gstatic.com https://*.firebaseio.com 'unsafe-inline';
+  style-src 'self' 'unsafe-inline';
+">
+
 <style>
 body {
   margin:0;
@@ -56,6 +64,7 @@ section { display:none; padding-top:100px; text-align:center; }
   cursor:pointer;
 }
 #errorMsg { color:red; margin-top:10px; display:none; }
+#offlineMsg { color:orange; margin-top:10px; display:none; }
 
 /* Hauptseite */
 #home h1 { font-size:3em; margin-top:20px; }
@@ -106,7 +115,7 @@ button.edit-btn, button.del-btn { padding:5px 10px; margin:2px; border:none; bor
     <input type="password" id="password" placeholder="Passwort">
     <button id="loginBtn">Anmelden</button>
     <div id="errorMsg">Falsch!</div>
-    <div id="offlineMsg" style="color:orange; display:none; margin-top:10px;">Offline - Firebase nicht verfügbar</div>
+    <div id="offlineMsg">Offline - Firebase nicht verfügbar</div>
   </div>
 </section>
 
@@ -157,8 +166,6 @@ import { getDatabase, ref, push, set, onValue, remove } from "https://www.gstati
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 let firebaseAvailable = true;
-
-// Firebase Config
 let app, db, auth;
 try {
   const firebaseConfig = {
@@ -198,7 +205,6 @@ loginBtn.addEventListener("click", ()=>{
   }
 
   if(!firebaseAvailable){
-    document.getElementById("offlineMsg").innerText="Firebase offline - Anmeldung nicht möglich";
     document.getElementById("offlineMsg").style.display="block";
     return;
   }
