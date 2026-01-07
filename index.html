@@ -2,42 +2,22 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>GyRa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <title>Login</title>
   <link rel="stylesheet" href="style.css">
-
-  <!-- Firebase -->
-  <script type="module" src="app.js"></script>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="loginPage" class="page">
-  <div class="login-box">
-    <h1>Login</h1>
-    <input id="email" type="text" placeholder="Benutzer">
-    <input id="password" type="password" placeholder="Passwort">
-    <button id="loginBtn">Anmelden</button>
-    <div id="loginError">falsch</div>
-  </div>
+<div class="login">
+  <h1>GyRa Technik</h1>
+
+  <input id="email" type="email" placeholder="E-Mail">
+  <input id="password" type="password" placeholder="Passwort">
+
+  <button id="loginBtn">Anmelden</button>
+
+  <div id="error" class="error hidden">Falsch</div>
 </div>
 
-<!-- HAUPTSEITE -->
-<div id="mainPage" class="page hidden">
-  <button id="newBtn">Neu</button>
-
-  <div id="cards"></div>
-</div>
-
-<!-- POPUP -->
-<div id="popup" class="hidden">
-  <div class="popup-box">
-    <input id="titleInput" placeholder="Überschrift">
-    <textarea id="textInput" placeholder="Text"></textarea>
-    <button id="saveBtn">Speichern</button>
-  </div>
-</div>
-
+<script type="module" src="app.js"></script>
 </body>
 </html>
