@@ -1,7 +1,7 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-/* FIREBASE CONFIG */
 const firebaseConfig = {
   apiKey: "AIzaSyA77Epd0AXYz41c47nXuJHP2EKqWbuneb4",
   authDomain: "gyraevent.firebaseapp.com",
@@ -13,61 +13,67 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getDatabase(app);
 
-/* ELEMENTE */
-const loginPage = document.getElementById("loginPage");
-const mainPage = document.getElementById("mainPage");
+/* LOGIN */
 const loginBtn = document.getElementById("loginBtn");
-const errorBox = document.getElementById("loginError");
+if (loginBtn) {
+  loginBtn.addEventListener("click", () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const error = document.getElementById("error");
 
-const newBtn = document.getElementById("newBtn");
-const popup = document.getElementById("popup");
-const saveBtn = document.getElementById("saveBtn");
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        window.location.href = "home.html";
+      })
+      .catch(() => {
+        error.classList.remove("hidden");
+        setTimeout(() => error.classList.add("hidden"), 3000);
+      });
+  });
+}
 
-const titleInput = document.getElementById("titleInput");
-const textInput = document.getElementById("textInput");
+/* HAUPTSEITE */
 const cards = document.getElementById("cards");
 
-/* LOGIN */
-loginBtn.onclick = () => {
-  const user = document.getElementById("email").value;
-  const pass = document.getElementById("password").value;
-
-  if (user === "1" && pass === "1") {
-    loginPage.classList.add("hidden");
-    mainPage.classList.remove("hidden");
-  } else {
-    errorBox.style.display = "block";
-    setTimeout(() => errorBox.style.display = "none", 3000);
-  }
-};
-
-/* POPUP */
-newBtn.onclick = () => popup.classList.remove("hidden");
-
-saveBtn.onclick = () => {
-  if (!titleInput.value || !textInput.value) return;
-
-  push(ref(db, "posts"), {
-    title: titleInput.value,
-    text: textInput.value
+if (cards) {
+  onAuthStateChanged(auth, user => {
+    if (!user) {
+      window.location.href = "index.html";
+    }
   });
 
-  titleInput.value = "";
-  textInput.value = "";
-  popup.classList.add("hidden");
-};
+  const popup = document.getElementById("popup");
+  const newBtn = document.getElementById("newBtn");
+  const saveBtn = document.getElementById("saveBtn");
 
-/* LADEN */
-onValue(ref(db, "posts"), snapshot => {
-  cards.innerHTML = "";
-  snapshot.forEach(child => {
-    const data = child.val();
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerText = data.title;
-    div.onclick = () => alert(data.text);
-    cards.appendChild(div);
+  newBtn.onclick = () => popup.classList.remove("hidden");
+
+  saveBtn.onclick = () => {
+    const title = document.getElementById("title").value;
+    const content = document.getElementById("content").value;
+
+    if (!title || !content) return;
+
+    push(ref(db, "posts"), {
+      title,
+      content
+    });
+
+    popup.classList.add("hidden");
+  };
+
+  onValue(ref(db, "posts"), snapshot => {
+    cards.innerHTML = "";
+    snapshot.forEach(child => {
+      const data = child.val();
+      const div = document.createElement("div");
+      div.className = "card";
+      div.textContent = data.title;
+      div.onclick = () => alert(data.content);
+      cards.appendChild(div);
+    });
   });
-});
+}
