@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebas
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-/* FIREBASE CONFIG */
+/* FIREBASE */
 const firebaseConfig = {
   apiKey: "AIzaSyA77Epd0AXYz41c47nXuJHP2EKqWbuneb4",
   authDomain: "gyraevent.firebaseapp.com",
@@ -20,13 +20,17 @@ const db = getDatabase(app);
 /* ELEMENTE */
 const loginScreen = document.getElementById("loginScreen");
 const mainScreen = document.getElementById("mainScreen");
+
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 const loginBtn = document.getElementById("loginBtn");
 const loginError = document.getElementById("loginError");
 
 const newBtn = document.getElementById("newBtn");
 const popupOverlay = document.getElementById("popupOverlay");
 const savePost = document.getElementById("savePost");
-
+const popupTitle = document.getElementById("popupTitle");
+const popupText = document.getElementById("popupText");
 const cardGrid = document.getElementById("cardGrid");
 
 /* LOGIN */
@@ -56,8 +60,8 @@ function showMain() {
 newBtn.onclick = () => popupOverlay.style.display = "flex";
 
 savePost.onclick = () => {
-  const title = document.getElementById("popupTitle").value.trim();
-  const text = document.getElementById("popupText").value.trim();
+  const title = popupTitle.value.trim();
+  const text = popupText.value.trim();
   if (!title || !text) return;
 
   push(ref(db, "posts"), { title, text });
@@ -72,10 +76,10 @@ onValue(ref(db, "posts"), snapshot => {
   cardGrid.innerHTML = "";
   snapshot.forEach(child => {
     const data = child.val();
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerText = data.title;
-    div.onclick = () => alert(data.text);
-    cardGrid.appendChild(div);
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerText = data.title;
+    card.onclick = () => alert(data.text);
+    cardGrid.appendChild(card);
   });
 });
