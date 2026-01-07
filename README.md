@@ -1,52 +1,47 @@
-# Gyra Event Manager 🚀
+GyRa Technik Feedback Dashboard 💡✨
 
-Eine einfache, funktionsfähige Event- und Inventar-Management-Webseite für **Gyra Technik**.  
-Die Seite läuft komplett im Browser, speichert Daten in **Firebase Realtime Database** und unterstützt **Dark & Light Mode**.
+Willkommen beim GyRa Technik Feedback Dashboard!
+Hier kannst du Wünsche, Ideen und Verbesserungsvorschläge anonym einreichen. Dein Feedback hilft uns, unsere Arbeit zu verbessern und noch bessere Ergebnisse zu liefern.
 
----
+⸻
 
-## 🔑 Passwortgeschützt
+📌 Features
+	•	Anonyme Einreichungen – keine Nutzerkonten nötig
+	•	Hauptseite mit moderner Oberfläche – klares, helles Design für einfache Nutzung
+	•	Inhalte erstellen und speichern – deine Vorschläge werden direkt in der Firebase Realtime-Datenbank gespeichert
+	•	Kartenansicht – alle Einträge werden übersichtlich als rechteckige Karten angezeigt
+	•	Popup-Funktion – klicke auf eine Karte, um den vollständigen Inhalt zu sehen
+	•	Sicheres Löschen – Einträge können nur mit einem Passwort gelöscht werden, damit die Daten geschützt bleiben
+	•	Echtzeit-Synchronisation – Änderungen werden sofort angezeigt
+	•	Responsive Design – funktioniert auf Desktop, Tablet und Smartphone
+   🚀 Nutzung
+	•	Öffne die Seite → Passwort eingeben → Weiterleitung zur Hauptseite
+	•	Hauptseite zeigt alle gespeicherten Vorschläge in Kartenform
+	•	Klick auf Karte → Popup öffnet sich → Voller Inhalt wird angezeigt
+	•	Neues Feedback hinzufügen → Popup mit Überschrift und Textfeld
+	•	Änderungen werden direkt in Echtzeit gespeichert
+	•	Feedback kann auch gelöscht werden, wenn das Sicherheits-Passwort eingegeben wird
 
-- Die Seite ist geschützt und kann nur über ein Passwort aufgerufen werden.  
-- Ohne Passwort kann die Seite nicht genutzt werden.
+⸻
 
----
+🔒 Sicherheit & Datenschutz
+	•	Anonymität garantiert – keine Speicherung persönlicher Daten
+	•	Firebase Realtime Database sorgt für schnelle Synchronisation
+	•	Löschen von Einträgen ist passwortgeschützt → Schutz vor Missbrauch
+	•	Daten werden sicher über HTTPS übertragen
 
-## 🏠 Seitenübersicht
+⸻
 
-Die Webseite hat vier Hauptbereiche:
+🎨 Design
+	•	Modern, klar, helles Farbkonzept mit leichtem Glas-Effekt
+	•	Karten mit Hover-Effekten für bessere Übersicht
+	•	Responsive Layout für alle Bildschirmgrößen
+	•	Einfach und übersichtlich für schnelle Einreichungen
 
-1. **Home**  
-   - Zeigt den Titel **Gyra Technik** in der Mitte.  
+⸻
 
-2. **Inventar**  
-   - Verwaltung von Geräten, Zubehör, Nebel, Kabel und Verbrauchsgegenständen.  
-   - Funktionen:  
-     - Einträge hinzufügen, bearbeiten, löschen  
-     - Status auswählen: **Ok**, **Defekt** (rot) oder **Leer** (hellblau)  
-     - Filter nach Gruppe über Drop-down Menü  
-   - Alle Einträge werden in einer Tabelle angezeigt.
+❤️ Danke für dein Feedback!
 
-3. **Aktuell**  
-   - Kurze Textinfos eintragen (z. B. Notizen oder aktuelle Aufgaben)  
-   - Einträge bearbeiten oder löschen  
-   - Listenansicht mit Überschrift  
-
-4. **Wichtig**  
-   - Zeigt automatisch alle Inventar-Einträge mit Status **Defekt** oder **Leer**  
-
----
-
-## 🌗 Dark / Light Mode
-
-- Über den Button oben rechts kannst du jederzeit zwischen **Dark Mode** und **Light Mode** wechseln.  
-
----
-
-## ⚡ Firebase Integration
-
-- Die Daten werden in **Firebase Realtime Database** gespeichert.  
-- Struktur der Datenbank:
-```json
-inventar: {}
-aktuell: {}
+Wir sind dankbar für deine Ideen, Wünsche und Verbesserungsvorschläge.
+Dein Feedback hilft uns, GyRa Technik noch besser zu machen!
+Also immer her damit – anonym, schnell und einfach.
